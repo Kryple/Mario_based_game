@@ -1,60 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
     public EnemyType enemyType;
+    public Ease easeLinear = Ease.Linear; // Ease type for the movement (optional)
     
     
-    public int scoreValue;
-    public Transform groundCheck; // Optional transform for ground detection
-    public float waitTimeAtWaypoint = 1.0f; // Time to wait at each waypoint (seconds)
+    public int scoreValue; //the score of this enemy
+    // public Transform groundCheck; // Optional transform for ground detection
+    public float waitTimeAtWaypoint = 1f; // Time to wait at each waypoint (seconds)
 
-    protected List<Transform> waypoints; // List of waypoints to follow
-    protected int currentWaypointIndex = 0; // Index of the current waypoint
+    //Protected
+    protected float health; 
+    protected float movementSpeed;
+    [SerializeField] protected GameObject waypoints; // List of waypoints to follow
+    [SerializeField] protected int currentWaypointIndex = 0; // Index of the current waypoint
+    [SerializeField] protected float speed = 5f;
     
     //Private
-    private float health;
-    private float movementSpeed;
+    
 
     public virtual void Start()
     {
-        waypoints = new List<Transform>(); // Initialize waypoints list
+        
     }
 
     public abstract void TakeDamage(float amount);
+    
 
-    public virtual void Move()
+    public IEnumerator MoveToNextWayPoint()
     {
-        if (waypoints.Count == 0) // No waypoints defined
+        while (true)
         {
-            return;
+            if (currentWaypointIndex >= waypoints.transform.childCount)
+                currentWaypointIndex = 0;
+
+            Vector2 startPoint = transform.position;
+            Vector2 endPoint = waypoints.transform.GetChild(currentWaypointIndex).position;
+        
+            transform.DOMove(endPoint, Vector2.Distance(endPoint, startPoint)/speed).SetEase(easeLinear);
+            currentWaypointIndex++;
+        
+            yield return new WaitForSeconds(waitTimeAtWaypoint); 
         }
+        
+        // StartCoroutine(MoveToNextWayPoint());
+    
+    }
+    
 
-        // Move towards current waypoint
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].position, movementSpeed * Time.deltaTime);
-
-        // Check if reached the waypoint
-        if (Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position) <= 0.1f)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count; // Loop to next waypoint
-            StartCoroutine(WaitAtWaypoint()); // Start coroutine for waiting
+            //A force push player up above a little bit 
+            Debug.Log("Hit the player");
         }
     }
-
-    IEnumerator WaitAtWaypoint()
-    {
-        yield return new WaitForSeconds(waitTimeAtWaypoint);  // Wait for specified time
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            
-        }
-    }
+    
+    
 }
 
 public enum EnemyType
