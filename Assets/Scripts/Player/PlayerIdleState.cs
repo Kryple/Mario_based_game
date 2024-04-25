@@ -19,10 +19,7 @@ public class PlayerIdleState : PlayerGroundedState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        if (!grounded || xInput != 0)
-        {
-            isCompleted = true;
-        }
+     
     }
 
     public override void UpdatePhysics()

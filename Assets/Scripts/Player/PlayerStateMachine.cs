@@ -8,31 +8,35 @@ using UnityEngine.PlayerLoop;
 public class PlayerStateMachine : StateMachine
 {
     
-    [HideInInspector] public PlayerRunState PRunState;
-    [HideInInspector] public PlayerIdleState PIdleState;
-    [HideInInspector] public PlayerJumpState PJumpState;
-    [HideInInspector] public PlayerFallState PFallState;
-
-
-    public List<BaseState> stateList = new List<BaseState>();
-    public Animator animator;
-    public Rigidbody2D rigidbody2D;
+    [HideInInspector] public PlayerRunState _pRunState;
+    [HideInInspector] public PlayerIdleState _pIdleState;
+    [HideInInspector] public PlayerJumpState _pJumpState;
+    [HideInInspector] public PlayerFallState _pFallState;
+    [HideInInspector] public PlayerGroundedState _pGroundedState;
+    [HideInInspector] public PlayerAirborneState _pAirborneState;
+    [HideInInspector] public PlayerAllStates _pAllStates;
+    
+    public Animator _animator;
+    public Rigidbody2D _rigidbody2D;
+    public BoxCollider2D _boxCollider2D;
+    public Transform _self;
+    public LayerMask _groundMask;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _self = GetComponent<Transform>();
 
 
-        PRunState = new PlayerRunState("PlayerRunState", this);
-        PIdleState = new PlayerIdleState("PlayerIdleState", this);
-        PJumpState = new PlayerJumpState("PlayerJumpState", this);
-        PFallState = new PlayerFallState("PlayerFallState", this);
-        
-        stateList.Add(PRunState);
-        stateList.Add(PIdleState);
-        stateList.Add(PJumpState);
-        stateList.Add(PFallState);
+        _pRunState = new PlayerRunState("PlayerRunState", this);
+        _pIdleState = new PlayerIdleState("PlayerIdleState", this);
+        _pJumpState = new PlayerJumpState("PlayerJumpState", this);
+        _pFallState = new PlayerFallState("PlayerFallState", this);
+        _pGroundedState = new PlayerGroundedState("PlayerGroundedState", this);
+        _pAirborneState = new PlayerAirborneState("PlayerAirBorneState", this);
+        _pAllStates = new PlayerAllStates("PlayerAllStates", this);
     }
 
     private void Start()
@@ -41,14 +45,8 @@ public class PlayerStateMachine : StateMachine
         
     }
 
-    private void Update()
-    {
-        
-    }
-    
-
     protected override BaseState GetInitialState()
     {
-        return PIdleState;
+        return _pIdleState;
     }
 }

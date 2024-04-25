@@ -23,14 +23,17 @@ public class PlayerRunState : PlayerGroundedState
     {
         base.UpdateLogic();
 
-        float velX = rigidbody2D.velocity.x;
-        animator.speed = Helpers.Map(maxXSpeed, 0, 1, 0, 1.6f, true);
-
-        if (!grounded || Mathf.Abs(velX) < 0.1f)
+        HandleXMovement();
+    }
+    
+    void HandleXMovement() {
+        if (Mathf.Abs(xInput) > 0) 
         {
-            isCompleted = true;
+            //increment velocity by our accelleration, then clamp within max
+            float increment = xInput * acceleration;
+            float newSpeed = Mathf.Clamp(rigidbody2D.velocity.x + increment, -runSpeed, runSpeed);
+            rigidbody2D.velocity = new Vector2(newSpeed, rigidbody2D.velocity.y);
         }
-
     }
 
     public override void UpdatePhysics()

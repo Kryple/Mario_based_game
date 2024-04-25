@@ -14,6 +14,7 @@ public class PlayerAirborneState : PlayerAllStates
     public override void Enter()
     {
         base.Enter();
+        grounded = false;
     }
 
     public override void UpdateLogic()

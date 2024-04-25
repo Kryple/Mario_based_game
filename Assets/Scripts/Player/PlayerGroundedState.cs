@@ -19,6 +19,20 @@ public class PlayerGroundedState : PlayerAllStates
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+        if (Mathf.Abs(xInput) > 0)
+        {
+            playerStateMachine.ChangeState(playerStateMachine._pRunState);
+        }
+        else
+        {
+            playerStateMachine.ChangeState(playerStateMachine._pIdleState);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            grounded = false;
+            playerStateMachine.ChangeState(playerStateMachine._pJumpState);
+        }
     }
 
     public override void UpdatePhysics()
