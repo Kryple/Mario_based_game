@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 83839075}
   - component: {fileID: 83839074}
   - component: {fileID: 83839073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 107931469}
   - component: {fileID: 107931468}
   - component: {fileID: 107931467}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,6 +452,9 @@ GameObject:
   - component: {fileID: 301133392}
   - component: {fileID: 301133391}
   - component: {fileID: 301133395}
+  - component: {fileID: 301133396}
+  - component: {fileID: 301133397}
+  - component: {fileID: 301133398}
   m_Layer: 0
   m_Name: Player - my code
   m_TagString: Player
@@ -518,18 +521,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.056269884, y: 0.19033894}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.7619047, y: 0}
+    oldSize: {x: 0.21, y: 0.38}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.22450066, y: 0.38363975}
   m_EdgeRadius: 0
 --- !u!212 &301133393
 SpriteRenderer:
@@ -572,7 +575,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -3789371589375318692, guid: 7a2e36372b098dc4d9b81260038e72e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -592,7 +595,7 @@ Transform:
   m_GameObject: {fileID: 301133390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.19, y: -0.43, z: 0}
+  m_LocalPosition: {x: -2, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -605,7 +608,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301133390}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6627a9cdfddbe3b4b88f494d85bcfb92, type: 3}
   m_Name: 
@@ -616,6 +619,63 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 55
+--- !u!114 &301133396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301133390}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9763689889ad6ec47a18cd670408670a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 301133391}
+  groundCheck: {fileID: 301133392}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  acceleration: 6
+  groundDecay: 0.433
+  maxXSpeed: 9
+  jumpSpeed: 13
+  grounded: 0
+--- !u!95 &301133397
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301133390}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 4930238719116007832, guid: 7a2e36372b098dc4d9b81260038e72e9, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &301133398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301133390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114723c4a2cdd9148a77ae7e61ad30f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 301133397}
+  rigidbody2D: {fileID: 301133391}
 --- !u!1 &1294199679
 GameObject:
   m_ObjectHideFlags: 0
