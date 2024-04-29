@@ -20,6 +20,17 @@ public class PlayerAirborneState : PlayerAllStates
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+
+        if (rigidbody2D.velocity.y < 0)
+        {
+            playerStateMachine.ChangeState(playerStateMachine._pFallState);
+        }
+        
+        if (grounded)
+        {
+            playerStateMachine.ChangeState(playerStateMachine._pIdleState);
+            Debug.Log("hihi");
+        }  
     }
 
     public override void UpdatePhysics()

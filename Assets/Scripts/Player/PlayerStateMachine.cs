@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FSM;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 public class PlayerStateMachine : StateMachine
 {
@@ -18,7 +19,7 @@ public class PlayerStateMachine : StateMachine
     
     public Animator _animator;
     public Rigidbody2D _rigidbody2D;
-    public BoxCollider2D _boxCollider2D;
+    [FormerlySerializedAs("_boxCollider2D")] public CapsuleCollider2D _mainCollider2D;
     public Transform _self;
     public LayerMask _groundMask;
 
@@ -26,7 +27,7 @@ public class PlayerStateMachine : StateMachine
     {
         _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _mainCollider2D = GetComponent<CapsuleCollider2D>();
         _self = GetComponent<Transform>();
 
 

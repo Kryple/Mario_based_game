@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerAirborneState
 {
-    public float jumpSpeed = runSpeed * 1.8f;
+    public float jumpSpeed = runSpeed * 2.4f;
     
     public PlayerJumpState(string name, StateMachine stateMachine) : base(name, stateMachine)
     {
@@ -30,11 +30,7 @@ public class PlayerJumpState : PlayerAirborneState
         // animator.speed = 0;
         
         
-        if (grounded)
-        {
-            playerStateMachine.ChangeState(playerStateMachine._pIdleState);
-            Debug.Log("hihi");
-        }  
+        
         
         
     }

@@ -13,7 +13,7 @@ public class PlayerAllStates : BaseState
     
     protected PlayerStateMachine playerStateMachine;
     protected Rigidbody2D rigidbody2D;
-    protected BoxCollider2D boxCollider2D;
+    protected CapsuleCollider2D boxCollider2D;
     protected Animator animator;
     protected Transform self;
     
@@ -41,7 +41,7 @@ public class PlayerAllStates : BaseState
         base.Enter();
         playerStateMachine = (PlayerStateMachine) stateMachine;
         rigidbody2D = playerStateMachine._rigidbody2D;
-        boxCollider2D = playerStateMachine._boxCollider2D;
+        boxCollider2D = playerStateMachine._mainCollider2D;
         animator = playerStateMachine._animator;
         self = playerStateMachine._self;
         groundMask = playerStateMachine._groundMask;
@@ -87,7 +87,8 @@ public class PlayerAllStates : BaseState
     void CheckGround() {
         Debug.Log($"colliders: {Physics2D.OverlapAreaAll(boxCollider2D.bounds.min, boxCollider2D.bounds.max, groundMask).Length}");
         
-        grounded = Physics2D.OverlapAreaAll(boxCollider2D.bounds.min + new Vector3(0f, 0.06f, 0f), boxCollider2D.bounds.max, groundMask).Length > 0;
+        //'0.004f': to ensure the player change to the jump animation at the first time press Space 
+        grounded = Physics2D.OverlapAreaAll(boxCollider2D.bounds.min + new Vector3(0f, 0.04f, 0f), boxCollider2D.bounds.max, groundMask).Length > 0;
     }
     
     void ApplyFriction() {
